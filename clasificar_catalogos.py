@@ -8,16 +8,11 @@ Created on Sat Feb  8 22:23:17 2025
 #%%imports
 import numpy as np
 from astropy.io import fits
-from astropy.modeling import models, fitting
 from astropy import wcs
 import matplotlib.pyplot as plt
-from scipy.ndimage import zoom
 from matplotlib.colors import LogNorm
-import scipy
-from astropy.nddata import Cutout2D
 import astropy.units as u
 from astropy.coordinates import SkyCoord,match_coordinates_sky, match_coordinates_3d
-from time import time 
 from astropy.table import Table
 from astropy.table import vstack
 from astropy.table import hstack
@@ -54,13 +49,14 @@ def add_rows_1banda(catb, banda):
         catb.add_row([banda['id'][i], banda['ra_core'][i], banda['dec_core'][i], banda['ra_cent'][i], banda['dec_cent'][i], banda['flux'][i], banda['core_frac'][i], banda['b_maj'][i], banda['b_min'][i], banda['pa'][i], banda['size'][i], banda['class'][i]])
     return catb
 
-#Función que añade los objetos que aparecen en 2 bandas clasificados al catálogo final
+#Función que añade los objetos que aparecen en 2 o 3 bandas clasificados al catálogo final
 def add_rows_2bandas(catb, banda, clase):
     for i in range(banda['flux'].size):
         catb.add_row([banda['id'][i], banda['ra_core'][i], banda['dec_core'][i], banda['ra_cent'][i], banda['dec_cent'][i], banda['flux'][i], banda['core_frac'][i], banda['b_maj'][i], banda['b_min'][i], banda['pa'][i], banda['size'][i], clase[i]])
     return catb
        
 #%%Se abren los catálogos de las 3 bandas
+#Ejemplo con el catálogo 1
 tcatB1 = pd.read_table('cat1_B1.txt', sep='\s+')
 tcatB1=tcatB1.dropna()
 tcatB2 = pd.read_table('cat1_B2.txt', sep='\s+')
@@ -69,8 +65,8 @@ tcatB5 = pd.read_table('cat1_B5.txt', sep='\s+')
 tcatB5=tcatB5.dropna()
 
 #Primero, se identifican los objetos que aparecen en las 3 bandas
-#Se va a emplear el método Sdc1Scorer, que es la forma de correlacionar catálogos para puntuarlos desarrollado por SKAO
-#tiene una función que devuelve un dataframe con la información de todos los matches entre dos catálogos, que es lo que se va a aprovechar
+#Se va a emplear el método Sdc1Scorer, que es la forma de correlacionar catálogos para puntuarlos desarrollado por SKAO 
+#Tiene una función que devuelve un dataframe con la información de todos los matches entre dos catálogos, que es lo que se va a aprovechar del método
 
 #Primero, se determina qué objetos de B5 están en B2
 scorer52 = Sdc1Scorer(
