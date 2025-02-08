@@ -22,7 +22,7 @@ def beam_coseno(fwhm, theta):
     beam=np.cos(np.pi*x)/(1-4*(x**2))
     return (np.abs(beam))**2
 
-#datos para las distintas bandas: FWHM en grados y tamaño de píxel en arcsec
+#Datos para las distintas bandas: FWHM en grados y tamaño de píxel en arcsec
 fwhm1=0.5547
 fwhm2=0.2219
 fwhm5=0.0342
