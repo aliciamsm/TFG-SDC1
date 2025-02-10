@@ -1,5 +1,5 @@
 # TFG-SDC1
-Código empleado en el desarrollo del TFG 'nombre'
+Código empleado en el desarrollo del TFG de nombre'Detección, segmentación y clasificación de objetos extragalácticos en los datos del SKA Science Data Challenge 1'
 En este repositorio se incluyen los programas escritos para el manejo, caracterización y clasificación de los catálogos propuestos para el SDC1, además del código empleado para modelar el Primary Beam.
 
 El archivo 'modelo_beam_coseno.py' incluye el código para modelar el Primary Beam según una función cosenoidal.
