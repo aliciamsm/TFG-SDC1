@@ -19,7 +19,7 @@ from astropy.coordinates import search_around_sky
 from astropy.io import ascii
 
 #Se definien las siguientes funciones
-#Función que cambia el origen de coordenadas de la Ascensión Recta (AR) para que estén contenida en [-180, 180], el criterio del true catalogue
+#Función que cambia el origen de coordenadas de la Ascensión Recta (AR) para que esté contenida en [-180, 180], el criterio del true catalogue
 def coord_ra(columna):
     for i in range(columna.size):#esta probablemente no va a servir
         if columna[i]>180:
